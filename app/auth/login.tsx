@@ -14,7 +14,7 @@ export default function Login() {
     <View style={styles.container}>
         <View style={styles.topContainer}>
             <View>
-                <Ionicons name="chevron-back-outline" size={24} color="white" style={styles.backButton} />
+                <Ionicons name="chevron-back-outline" size={32} color="white" style={styles.backButton} />
             </View>
 
             <AppText style={ styles.signIn }>Masuk</AppText>
