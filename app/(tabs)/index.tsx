@@ -41,9 +41,8 @@ export default function App() {
         </View>
       </View>
 
-
       <View style={styles.taskHeader}>
-        <Text style={styles.taskTitle}>Today's Task</Text>
+        <Text style={styles.taskTitle}>Today`s Task</Text>
         <Text style={styles.seeAll}>See All</Text>
       </View>
 
