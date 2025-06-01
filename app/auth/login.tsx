@@ -49,7 +49,7 @@ export default function Login() {
             </View>
 
             {/* Button Login */}
-            <TouchableOpacity style={styles.loginButton} onPress={() => router.replace('/(tabs)')}>
+            <TouchableOpacity style={styles.loginButton} onPress={() => router.replace('../home')}>
                 <AppText style={styles.loginButtonText}>Login</AppText>
             </TouchableOpacity>
 

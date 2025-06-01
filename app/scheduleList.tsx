@@ -11,6 +11,10 @@ const ScheduleScreen: React.FC = () => {
         { time: '11:30 AM', title: 'Tugas Arduino', description: 'Arduino Uno, sensor suhu' },
         { time: '20:00 PM', title: 'Zoom Meeting', description: 'Praktikummmmm.....' },
         { time: '23:59 PM', title: 'Dicoding', description: 'Course Javascript dasar, tenggat malam ini ges, walawe mantappu jiwa meleda' },
+        { time: '23:59 PM', title: 'Dicoding', description: 'Course Javascript dasar, tenggat malam ini ges, walawe mantappu jiwa meleda' },
+        { time: '23:59 PM', title: 'Dicoding', description: 'Course Javascript dasar, tenggat malam ini ges, walawe mantappu jiwa meleda' },
+        { time: '23:59 PM', title: 'Dicoding', description: 'Course Javascript dasar, tenggat malam ini ges, walawe mantappu jiwa meleda' },
+
     ];
     const days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
 
@@ -29,62 +33,70 @@ const ScheduleScreen: React.FC = () => {
     const [selectedIndex, setSelectedIndex] = useState(3);
 
     return (
-        <ScrollView style={styles.container}>
-            {/* Bagian Header dengan Tombol Kembali */}
-            <View style={styles.topContainer}>
-                <TouchableOpacity onPress={() => router.replace('/(tabs)')}>
-                    <Ionicons name="chevron-back-outline" size={32} color="black" />
-                </TouchableOpacity>
-                <AppText style={styles.homeLabel}>Beranda</AppText>
-            </View>
-
-            {/* Kalender Horizontal */}
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.calendarContainer}>
-                {days.map((day, index) => (
-                    <TouchableOpacity key={index} onPress={() => setSelectedIndex(index)}>
-                        <View style={[styles.dateItem,
-                            selectedIndex === index ? styles.selectedDateItem : {}
-                        ]}>
-                            <AppText style={[styles.day,
-                                selectedIndex === index ? styles.selectedDay : {}
-                            ]}>
-                                {day}
-                            </AppText>
-                            <AppText style={[styles.date,
-                                selectedIndex === index ? styles.selectedDate : {}
-                            ]}>
-                                {dates[index]}
-                            </AppText>
-                        </View>
+        <View style={{ flex: 1 }}>
+            <View style={styles.container}>
+                {/* Bagian Header dengan Tombol Kembali */}
+                <View style={styles.topContainer}>
+                    <TouchableOpacity onPress={() => router.replace('../home')} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <Ionicons name="chevron-back-outline" size={32} color="black" />
+                        <AppText style={styles.homeLabel}>Beranda</AppText>
                     </TouchableOpacity>
-                ))}
-            </ScrollView>
+                </View>
 
-            {/* Daftar Tugas */}
-            <View style={styles.middleContainer}>
-                <AppText style={styles.header}>
-                    {days[selectedIndex]}, {format(addDays(weekStart, selectedIndex), 'dd MMM')}
-                </AppText>
-                {tasks.map((task, index) => (
-                    <View key={index} style={styles.taskWrapper}>
-                    {/* Timeline bullet and line */}
-                    <View style={styles.timeline}>
-                        <View style={ (index % 2 === 0) ? styles.bulletEven : styles.bulletOdd } />
-                        {index !== tasks.length - 1 && <View style={styles.line} />}
-                    </View>
+                {/* Kalender Horizontal */}
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.calendarContainer}>
+                    {days.map((day, index) => (
+                        <TouchableOpacity key={index} onPress={() => setSelectedIndex(index)}>
+                            <View style={[styles.dateItem,
+                                selectedIndex === index ? styles.selectedDateItem : {}
+                            ]}>
+                                <AppText style={[styles.day,
+                                    selectedIndex === index ? styles.selectedDay : {}
+                                ]}>
+                                    {day}
+                                </AppText>
+                                <AppText style={[styles.date,
+                                    selectedIndex === index ? styles.selectedDate : {}
+                                ]}>
+                                    {dates[index]}
+                                </AppText>
+                            </View>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
 
-                    {/* Task Content */}
-                    <View style={ (index % 2 === 0) ? styles.taskContainerEven : styles.taskContainerOdd }>
-                        <View style={styles.titleRow}>
-                            <AppText style={styles.title}>{task.title}</AppText>
-                            <AppText style={styles.time}>{task.time}</AppText>
-                        </View>
-                            <AppText style={styles.description}>{task.description}</AppText>
-                        </View>
+                {/* Daftar Tugas */}
+                <ScrollView>
+                    <View style={styles.middleContainer}>
+                        <AppText style={styles.header}>
+                            {days[selectedIndex]}, {format(addDays(weekStart, selectedIndex), 'dd MMM')}
+                        </AppText>
+                        {tasks.map((task, index) => (
+                            <View key={index} style={styles.taskWrapper}>
+                            {/* Timeline bullet and line */}
+                            <View style={styles.timeline}>
+                                <View style={[ styles.bullet, (index % 2 === 0) ? { backgroundColor: '#4190FF' } : { backgroundColor: '#69A8FF' } ]} />
+                                {index !== tasks.length - 1 && <View style={styles.line} />}
+                            </View>
+
+                            {/* Task Content */}
+                            <View style={[styles.taskContainer, (index % 2 === 0) ? { backgroundColor: '#69A8FF' } : { backgroundColor: '#90BEFF' } ]}>
+                                <View style={styles.titleRow}>
+                                    <AppText style={styles.title}>{task.title}</AppText>
+                                    <AppText style={styles.time}>{task.time}</AppText>
+                                </View>
+                                    <AppText style={styles.description}>{task.description}</AppText>
+                                </View>
+                            </View>
+                        ))}
                     </View>
-                ))}
+                </ScrollView>
             </View>
-        </ScrollView>
+                {/* Tombol Tambah Fixed */}
+            <TouchableOpacity style={styles.fab}>
+                <Ionicons name="add" size={28} color="white" />
+            </TouchableOpacity>
+        </View>
     );
 };
 
@@ -98,21 +110,19 @@ const styles = StyleSheet.create({
     topContainer: {
         height: '27.5%',
         paddingTop: '15%',
-        display: 'flex',
-        flexDirection: 'row'
     },
     homeLabel: {
         fontWeight: 'bold',
         fontSize: 18,
-        marginTop: '1%'  
+        paddingLeft: 3
     },
     backButton: {
         marginLeft: '1%',
     }, 
     calendarContainer: {
-        marginTop: -40,
+        marginTop: '-32.5%',
+        paddingBottom: '15%',
         backgroundColor: '#F4F4F4',
-        paddingBottom: 100,
     },
     dateItem: {
         alignItems: 'center',
@@ -156,7 +166,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         color: '#4190FF',
-        marginBottom: 25,
+        marginBottom: 28,
     },
     taskWrapper: {
         flexDirection: 'row',
@@ -168,18 +178,11 @@ const styles = StyleSheet.create({
         marginRight: 10,
         width: 20,
     },
-    bulletEven: {
+    bullet: {
         width: 10,
         height: 10,
         borderRadius: 5,
         backgroundColor: '#4190FF', // Ganti sesuai tema
-        zIndex: 1,
-    },
-    bulletOdd: {
-        width: 10,
-        height: 10,
-        borderRadius: 5,
-        backgroundColor: '#69A8FF', // Ganti sesuai tema
         zIndex: 1,
     },
     line: {
@@ -189,21 +192,13 @@ const styles = StyleSheet.create({
         marginTop: 2,
     },
 
-    taskContainerEven: {
+    taskContainer: {
         flex: 1,
         backgroundColor: '#69A8FF',
         padding: 13,
         borderRadius: 15,
-        marginTop: -10,
-        marginBottom: 25,
-    },
-    taskContainerOdd: {
-        flex: 1,
-        backgroundColor: '#90BEFF',
-        padding: 13,
-        borderRadius: 13,
-        marginTop: -10,
-        marginBottom: 25,
+        marginTop: -1,
+        marginVertical: 10,
     },
     titleRow: {
         flexDirection: 'row',
@@ -227,6 +222,18 @@ const styles = StyleSheet.create({
         color: '#FFF',
         marginTop: 4,
         paddingLeft: 2
+    },
+    fab: {
+        position: 'absolute',
+        right: 20,
+        bottom: 30,
+        backgroundColor: '#599EFF',
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 4,
     },
 });
 
