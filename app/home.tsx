@@ -20,8 +20,8 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <AppText style={styles.greeting}>Hello, Lorem Ipsum</AppText>
-            <AppText style={styles.subText}>You have 5 task for today!</AppText>
+            <AppText style={styles.greeting}>Hello, OzieTzy</AppText>
+            <AppText style={styles.subText}>Kamu punya 5 tugas hari ini!</AppText>
 
             <View style={styles.topRightIcons}>
                 <Ionicons name="notifications-outline" size={24} color="black" />
@@ -34,12 +34,12 @@ export default function App() {
                 <View style={styles.statusRow}>
                 <View style={[styles.statusBox, { backgroundColor: '#B0D8F3' }]}>
                     <Ionicons name="time-outline" size={24} color="black" />
-                    <AppText>Today</AppText>
+                    <AppText>Hari ini</AppText>
                     <AppText style={styles.statusCount}>5</AppText>
                 </View>
                 <View style={[styles.statusBox, { backgroundColor: '#FAF59F' }]}>
                     <Ionicons name="calendar-outline" size={24} color="black" />
-                    <AppText>Scheduled</AppText>
+                    <AppText>Terjadwal</AppText>
                     <AppText style={styles.statusCount}>5</AppText>
                 </View>
                 </View>
@@ -47,19 +47,19 @@ export default function App() {
                 <View style={styles.statusRow}>
                 <View style={[styles.statusBox, { backgroundColor: '#DDF8F0' }]}>
                     <Ionicons name="refresh-outline" size={24} color="black" />
-                    <AppText>All</AppText>
+                    <AppText>Semua</AppText>
                     <AppText style={styles.statusCount}>15</AppText>
                 </View>
                 <View style={[styles.statusBox, { backgroundColor: '#FCD8F2' }]}>
                     <Ionicons name="alert-circle-outline" size={24} color="black" />
-                    <AppText>Overdue</AppText>
+                    <AppText>Terlambat</AppText>
                     <AppText style={styles.statusCount}>0</AppText>
                 </View>
                 </View>
             </View>
 
             <View style={styles.taskHeader}>
-                <AppText style={styles.taskTitle}>Today`s Task</AppText>
+                <AppText style={styles.taskTitle}>Tugas Hari ini</AppText>
                 <TouchableOpacity style={styles.seeAllButton} onPress={() => router.replace('../scheduleList')}>
                     <AppText style={styles.seeAll}>Lihat Semua</AppText>
                 </TouchableOpacity>
