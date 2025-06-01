@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const ProfilePage = () => {
+const ProfileScreen = () => {
   return (
     <View style={styles.container}>
         <View style={styles.topContainer}>
@@ -46,7 +46,6 @@ const MenuItem: React.FC<MenuItemProps> = ({ title }) => (
     <Text style={styles.arrow}></Text>
   </TouchableOpacity>
 );
-
 
 const styles = StyleSheet.create({
     container: {
@@ -113,4 +112,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ProfilePage;
+export default ProfileScreen;

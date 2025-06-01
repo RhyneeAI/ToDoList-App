@@ -29,8 +29,11 @@ const ScheduleScreen: React.FC = () => {
 
     const weekStart = startOfWeek(new Date(), { weekStartsOn: 1 });
     const dates = getThisWeekDates();
+    const today = new Date();
+    const todayStr = format(today, 'dd');
+    const initialIndex = dates.findIndex(date => date === todayStr);
 
-    const [selectedIndex, setSelectedIndex] = useState(3);
+    const [selectedIndex, setSelectedIndex] = useState(initialIndex !== -1 ? initialIndex : 0);
 
     return (
         <View style={{ flex: 1 }}>
@@ -75,20 +78,30 @@ const ScheduleScreen: React.FC = () => {
                         </AppText>
                         {tasks.map((task, index) => (
                             <View key={index} style={styles.taskWrapper}>
-                            {/* Timeline bullet and line */}
-                            <View style={styles.timeline}>
-                                <View style={[ styles.bullet, (index % 2 === 0) ? { backgroundColor: '#4190FF' } : { backgroundColor: '#69A8FF' } ]} />
+                                <View style={styles.timeline}>
+                                <View style={[
+                                    styles.bullet,
+                                    (index % 2 === 0) ? { backgroundColor: '#4190FF' } : { backgroundColor: '#69A8FF' }
+                                ]} />
                                 {index !== tasks.length - 1 && <View style={styles.line} />}
-                            </View>
+                                </View>
 
-                            {/* Task Content */}
-                            <View style={[styles.taskContainer, (index % 2 === 0) ? { backgroundColor: '#69A8FF' } : { backgroundColor: '#90BEFF' } ]}>
-                                <View style={styles.titleRow}>
+                                <TouchableOpacity
+                                onPress={() => router.replace('../detailToDoList')}
+                                activeOpacity={0.8}
+                                style={{ flex: 1 }}
+                                >
+                                <View style={[
+                                    styles.taskContainer,
+                                    (index % 2 === 0) ? { backgroundColor: '#69A8FF' } : { backgroundColor: '#90BEFF' }
+                                ]}>
+                                    <View style={styles.titleRow}>
                                     <AppText style={styles.title}>{task.title}</AppText>
                                     <AppText style={styles.time}>{task.time}</AppText>
-                                </View>
+                                    </View>
                                     <AppText style={styles.description}>{task.description}</AppText>
                                 </View>
+                                </TouchableOpacity>
                             </View>
                         ))}
                     </View>

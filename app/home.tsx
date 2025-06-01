@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-export default function App() {
+export default function HomeScreen() {
     const tasks = [
         { title: 'Tugas IMK', time: '10:00 AM' },
         { title: 'Tugas Arduino', time: '11:30 AM' },

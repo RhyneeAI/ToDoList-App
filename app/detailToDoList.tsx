@@ -2,12 +2,18 @@ import AppText from '@/components/AppText';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { router } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
-export default function AddToDoListScreen() {
+export default function DetailToDoListScreen() {
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    setDate(new Date());
+    setTime(new Date());
+  }, []);
+
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
@@ -36,13 +42,15 @@ export default function AddToDoListScreen() {
             </TouchableOpacity>
         </View>
 
-        <AppText style={styles.header}>Buat Tugas</AppText>
+        <AppText style={styles.header}>Detail Tugas</AppText>
 
         <View style={styles.rowInputText}>
             <AppText style={styles.notesLabel}>Tugas Baru</AppText>
             <TextInput
                 style={styles.input}
                 placeholder="Tugas"
+                value="Tugas IMK"
+                readOnly
                 placeholderTextColor="#fff"
             />
         </View>
@@ -50,22 +58,22 @@ export default function AddToDoListScreen() {
         {/* Tanggal */}
         <View style={[styles.rowInputDate, { marginTop: -10} ]}>
             <View style={styles.iconLabelGroup}>
-            <MaterialCommunityIcons name="calendar-month" size={20} color="#d084f5" />
-            <AppText style={styles.label}>Tanggal</AppText>
+                <MaterialCommunityIcons name="calendar-month" size={20} color="#d084f5" />
+                <AppText style={styles.label}>Tanggal</AppText>
             </View>
             <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-            <AppText style={styles.dateBox}>{formatDate(date)}</AppText>
+                <AppText style={styles.dateBox}>{formatDate(date)}</AppText>
             </TouchableOpacity>
         </View>
 
         {/* Time */}
         <View style={[styles.rowInputDate, { marginBottom: 20 } ]}>
             <View style={styles.iconLabelGroup}>
-            <Ionicons name="time-outline" size={20} color="#000" />
-            <AppText style={styles.label}>Waktu</AppText>
+                <Ionicons name="time-outline" size={20} color="#000" />
+                <AppText style={styles.label}>Waktu</AppText>
             </View>
-            <TouchableOpacity onPress={() => setShowTimePicker(true)}>
-            <AppText style={styles.dateBox}>{formatTime(time)}</AppText>
+                <TouchableOpacity onPress={() => setShowTimePicker(true)}>
+                <AppText style={styles.dateBox}>{formatTime(time)}</AppText>
             </TouchableOpacity>
         </View>
 
@@ -75,8 +83,22 @@ export default function AddToDoListScreen() {
             <TextInput
                 style={styles.notesInput}
                 multiline
+                readOnly
                 numberOfLines={5}
+                value="UI/UX + Implementasi berbentuk laporan dan juga aplikasi jadinya"
                 placeholder="Tambahkan catatan..."
+                placeholderTextColor="#fff"
+            />
+        </View>
+
+        {/* Notes */}
+        <View style={styles.rowInputText}>
+            <AppText style={styles.notesLabel}>Laporan Selesai</AppText>
+            <TextInput
+                style={styles.notesInput}
+                multiline
+                numberOfLines={3}
+                placeholder="Laporan..."
                 placeholderTextColor="#fff"
             />
         </View>
