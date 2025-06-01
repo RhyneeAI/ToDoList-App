@@ -5,66 +5,83 @@ import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-        <AppText style={styles.greeting}>Hello, Lorem Ipsum</AppText>
-        <AppText style={styles.subText}>You have 5 task for today!</AppText>
+    const tasks = [
+        { title: 'Tugas IMK', time: '10:00 AM' },
+        { title: 'Tugas Arduino', time: '11:30 AM' },
+        { title: 'Zoom Meeting', time: '20:00 PM' },
+        { title: 'Dicoding', time: '20:00 PM' },
+        { title: 'Dicoding', time: '20:00 PM' },
+        { title: 'Dicoding', time: '20:00 PM' },
+        { title: 'Dicoding', time: '20:00 PM' },
+        { title: 'Dicoding', time: '20:00 PM' },
+        { title: 'Dicoding', time: '20:00 PM' },
+        { title: 'Dicoding', time: '20:00 PM' },
+    ];
 
-        <View style={styles.topRightIcons}>
-            <Ionicons name="notifications-outline" size={24} color="black" />
-            <Ionicons name="person-circle-outline" size={26} color="black" style={{ marginLeft: 10 }} />
-        </View>
+    return (
+        <View style={styles.container}>
+            <AppText style={styles.greeting}>Hello, Lorem Ipsum</AppText>
+            <AppText style={styles.subText}>You have 5 task for today!</AppText>
 
-        <View style={styles.statusContainer}>
-            <View style={styles.statusRow}>
-            <View style={[styles.statusBox, { backgroundColor: '#B0D8F3' }]}>
-                <Ionicons name="time-outline" size={24} color="black" />
-                <AppText>Today</AppText>
-                <AppText style={styles.statusCount}>5</AppText>
-            </View>
-            <View style={[styles.statusBox, { backgroundColor: '#FAF59F' }]}>
-                <Ionicons name="calendar-outline" size={24} color="black" />
-                <AppText>Scheduled</AppText>
-                <AppText style={styles.statusCount}>5</AppText>
-            </View>
+            <View style={styles.topRightIcons}>
+                <Ionicons name="notifications-outline" size={24} color="black" />
+                <TouchableOpacity onPress={() => router.replace('../auth/profile')}>
+                <Ionicons name="person-circle-outline" size={26} color="black" style={{ marginLeft: 10 }} />
+                </TouchableOpacity>
             </View>
 
-            <View style={styles.statusRow}>
-            <View style={[styles.statusBox, { backgroundColor: '#DDF8F0' }]}>
-                <Ionicons name="refresh-outline" size={24} color="black" />
-                <AppText>All</AppText>
-                <AppText style={styles.statusCount}>15</AppText>
-            </View>
-            <View style={[styles.statusBox, { backgroundColor: '#FCD8F2' }]}>
-                <Ionicons name="alert-circle-outline" size={24} color="black" />
-                <AppText>Overdue</AppText>
-                <AppText style={styles.statusCount}>0</AppText>
-            </View>
-            </View>
-        </View>
+            <View style={styles.statusContainer}>
+                <View style={styles.statusRow}>
+                <View style={[styles.statusBox, { backgroundColor: '#B0D8F3' }]}>
+                    <Ionicons name="time-outline" size={24} color="black" />
+                    <AppText>Today</AppText>
+                    <AppText style={styles.statusCount}>5</AppText>
+                </View>
+                <View style={[styles.statusBox, { backgroundColor: '#FAF59F' }]}>
+                    <Ionicons name="calendar-outline" size={24} color="black" />
+                    <AppText>Scheduled</AppText>
+                    <AppText style={styles.statusCount}>5</AppText>
+                </View>
+                </View>
 
-        <View style={styles.taskHeader}>
-            <AppText style={styles.taskTitle}>Today`s Task</AppText>
-            <TouchableOpacity style={styles.seeAllButton} onPress={() => router.replace('../scheduleList')}>
-                <AppText style={styles.seeAll}>Lihat Semua</AppText>
+                <View style={styles.statusRow}>
+                <View style={[styles.statusBox, { backgroundColor: '#DDF8F0' }]}>
+                    <Ionicons name="refresh-outline" size={24} color="black" />
+                    <AppText>All</AppText>
+                    <AppText style={styles.statusCount}>15</AppText>
+                </View>
+                <View style={[styles.statusBox, { backgroundColor: '#FCD8F2' }]}>
+                    <Ionicons name="alert-circle-outline" size={24} color="black" />
+                    <AppText>Overdue</AppText>
+                    <AppText style={styles.statusCount}>0</AppText>
+                </View>
+                </View>
+            </View>
+
+            <View style={styles.taskHeader}>
+                <AppText style={styles.taskTitle}>Today`s Task</AppText>
+                <TouchableOpacity style={styles.seeAllButton} onPress={() => router.replace('../scheduleList')}>
+                    <AppText style={styles.seeAll}>Lihat Semua</AppText>
+                </TouchableOpacity>
+            </View>
+
+            <ScrollView>
+                {tasks.map((task, index) => (
+                    <View key={index} style={[styles.taskCard, (index % 2 === 0) ? { backgroundColor: '#69A8FF'} : { backgroundColor: '#90BEFF' }]}>
+                    <View style={styles.taskLeft}>
+                        <View style={styles.taskDot} />
+                        <AppText style={styles.taskText}>{task.title}</AppText>
+                    </View>
+                    <AppText style={styles.taskTime}>{task.time}</AppText>
+                    </View>
+                ))}
+            </ScrollView>
+
+            <TouchableOpacity style={styles.fab} onPress={() => router.replace('../addToDoList')}>
+                <Ionicons name="add" size={28} color="white" />
             </TouchableOpacity>
         </View>
-
-        <ScrollView>
-            <View style={[styles.taskCard, { backgroundColor: '#69A8FF' }]}>
-            <View style={styles.taskLeft}>
-                <View style={styles.taskDot} />
-                <AppText style={styles.taskText}>Tugas IMK</AppText>
-            </View>
-            <AppText style={styles.taskTime}>10:00 AM</AppText>
-            </View>
-        </ScrollView>
-
-        <TouchableOpacity style={styles.fab} onPress={() => router.replace('../addToDoList')}>
-            <Ionicons name="add" size={28} color="white" />
-        </TouchableOpacity>
-    </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({

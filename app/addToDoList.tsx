@@ -109,7 +109,7 @@ export default function AddTaskScreen() {
         )}
 
         {/* Submit Button */}
-        <TouchableOpacity style={styles.fab}>
+        <TouchableOpacity style={styles.fab} onPress={() => router.replace('../scheduleList')}>
             <Ionicons name="checkmark" size={28} color="#fff" />
         </TouchableOpacity>
     </View>
