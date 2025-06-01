@@ -43,6 +43,8 @@ const ScheduleScreen: React.FC = () => {
                     </TouchableOpacity>
                 </View>
 
+                <AppText style={[styles.header, {textAlign: 'center', marginTop: '-35%', color: '#000', fontSize: 28}]}>Jadwal Tugas</AppText>
+
                 {/* Kalender Horizontal */}
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.calendarContainer}>
                     {days.map((day, index) => (
@@ -92,8 +94,8 @@ const ScheduleScreen: React.FC = () => {
                     </View>
                 </ScrollView>
             </View>
-                {/* Tombol Tambah Fixed */}
-            <TouchableOpacity style={styles.fab}>
+            {/* Tombol Tambah Fixed */}
+            <TouchableOpacity style={styles.fab} onPress={() => router.replace('../addToDoList')}>
                 <Ionicons name="add" size={28} color="white" />
             </TouchableOpacity>
         </View>
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
         marginLeft: '1%',
     }, 
     calendarContainer: {
-        marginTop: '-32.5%',
+        // marginTop: '-32.5%',
         paddingBottom: '15%',
         backgroundColor: '#F4F4F4',
     },

@@ -23,6 +23,7 @@ export default function RootLayout() {
         <Stack.Screen name="login" />
         <Stack.Screen name="home" />
         <Stack.Screen name="scheduleList" />
+        <Stack.Screen name="addToDoList" />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />

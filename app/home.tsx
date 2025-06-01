@@ -60,7 +60,7 @@ export default function App() {
             </View>
         </ScrollView>
 
-        <TouchableOpacity style={styles.fab}>
+        <TouchableOpacity style={styles.fab} onPress={() => router.replace('../addToDoList')}>
             <Ionicons name="add" size={28} color="white" />
         </TouchableOpacity>
     </View>
