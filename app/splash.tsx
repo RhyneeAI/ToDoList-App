@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
 export default function SplashScreen() {
   const router = useRouter();
@@ -16,11 +16,11 @@ export default function SplashScreen() {
   return (
     <View style={styles.container}>
       <Image 
-        source={require('../assets/images/icon.png')} 
+        source={require('../assets/images/qik-list1.jpeg')} 
         style={styles.logo} 
         resizeMode="contain"
       />
-      <Text style={styles.title}>Welcome to ToDoListApp</Text>
+      {/* <Text style={styles.title}>Welcome </Text> */}
     </View>
   );
 }
@@ -33,11 +33,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff" 
   },
   logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
+    width: 400,
+    height: 400,
+    marginBottom: 0,
   },
   title: { 
+    marginTop: -20,
     fontSize: 24, 
     fontWeight: 'bold' 
   },

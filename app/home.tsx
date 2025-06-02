@@ -1,10 +1,12 @@
 import AppText from '@/components/AppText';
+import { useAuth } from '@/contexts/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
+    const { user } = useAuth();
     const tasks = [
         { title: 'Tugas IMK', time: '10:00 AM' },
         { title: 'Tugas Arduino', time: '11:30 AM' },
@@ -20,7 +22,7 @@ export default function HomeScreen() {
 
     return (
         <View style={styles.container}>
-            <AppText style={styles.greeting}>Hello, OzieTzy</AppText>
+            <AppText style={styles.greeting}>Halo, {user?.name}</AppText>
             <AppText style={styles.subText}>Kamu punya 5 tugas hari ini!</AppText>
 
             <View style={styles.topRightIcons}>

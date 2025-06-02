@@ -1,71 +1,98 @@
 import AppText from '@/components/AppText';
+import { useAuth } from '@/contexts/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TextInput, ToastAndroid, TouchableOpacity, View } from 'react-native';
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
+    const API_URL = 'http://192.168.18.225:3000/login';
 
-  return (
-    <View style={styles.container}>
-        <View style={styles.topContainer}>
-            <View>
-                <Ionicons name="chevron-back-outline" size={32} color="white" style={styles.backButton} />
+    const { setUser } = useAuth();
+    const login = async () => {
+        try {
+            const res = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                setUser(data.user); 
+                ToastAndroid.show(data.message, ToastAndroid.SHORT);
+                router.replace('../home');
+            } else {
+                ToastAndroid.show(data.message, ToastAndroid.LONG);
+            }
+        } catch (err) {
+            console.error('Login error : ', err);
+            ToastAndroid.show('Login gagal! ', ToastAndroid.SHORT);
+        }
+    };
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.topContainer}>
+                <View>
+                    <Ionicons name="chevron-back-outline" size={32} color="white" style={styles.backButton} />
+                </View>
+
+                <AppText style={ styles.signIn }>Masuk</AppText>
             </View>
 
-            <AppText style={ styles.signIn }>Masuk</AppText>
-        </View>
+            <View style={styles.middleContainer}>
+                <AppText style={styles.welcomeText}>Selamat Datang Kembali!</AppText>
+                <AppText style={styles.subWelcomeText}>Halo, Lanjut login?</AppText>
 
-        <View style={styles.middleContainer}>
-            <AppText style={styles.welcomeText}>Selamat Datang Kembali!</AppText>
-            <AppText style={styles.subWelcomeText}>Halo, Lanjut login?</AppText>
-
-            <AppText style={styles.label}>Email</AppText>
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-            />
-
-            <AppText style={styles.label}>Kata Sandi</AppText>
-            <View style={styles.passwordContainer}>
+                <AppText style={styles.label}>Email</AppText>
                 <TextInput
-                    style={[styles.input, { flex: 1, marginTop: 0 }]}
-                    placeholder="Kata Sandi"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry={!showPassword}
+                    style={styles.input}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
                 />
-                <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
-                    <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={22} color="#888" />
+
+                <AppText style={styles.label}>Kata Sandi</AppText>
+                <View style={styles.passwordContainer}>
+                    <TextInput
+                        style={[styles.input, { flex: 1, marginTop: 0 }]}
+                        placeholder="Kata Sandi"
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry={!showPassword}
+                    />
+                    <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
+                        <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={22} color="#888" />
+                    </TouchableOpacity>
+                </View>
+
+                {/* Button Login */}
+                <TouchableOpacity style={styles.loginButton} onPress={login}>
+                    <AppText style={styles.loginButtonText}>Login</AppText>
                 </TouchableOpacity>
+
+                {/* Teks Daftar */}
+                <View style={styles.registerContainer}>
+                    <AppText style={styles.registerText}>
+                        Belum punya akun? <AppText style={styles.registerLink}>Daftar!</AppText>
+                    </AppText>
+                </View>
             </View>
 
-            {/* Button Login */}
-            <TouchableOpacity style={styles.loginButton} onPress={() => router.replace('../home')}>
-                <AppText style={styles.loginButtonText}>Login</AppText>
+            <TouchableOpacity>
+                <Ionicons name="add" size={28} color="white" />
             </TouchableOpacity>
-
-            {/* Teks Daftar */}
-            <View style={styles.registerContainer}>
-                <AppText style={styles.registerText}>
-                    Belum punya akun? <AppText style={styles.registerLink}>Daftar!</AppText>
-                </AppText>
-            </View>
         </View>
-
-        <TouchableOpacity>
-            <Ionicons name="add" size={28} color="white" />
-        </TouchableOpacity>
-    </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({
